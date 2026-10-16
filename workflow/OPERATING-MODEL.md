@@ -10,10 +10,10 @@ The source project separates product discussion from engineering and stores only
 
 | Stage | Main activity | Durable output | Gate to proceed |
 |---|---|---|---|
-| Inspect and initialize | Read existing repository guidance, product artifacts, architecture, task systems, commands, and local changes selectively. | Completed project configuration and source-of-truth map. | Owner confirms unknown required inputs or accepts explicitly recorded unknowns before implementation. |
+| Inspect and initialize | Read existing agent guidance, product artifacts, architecture, task systems, commands, and local changes selectively. | Completed project configuration and source-of-truth map. | Owner confirms unknown required inputs or accepts explicitly recorded unknowns before implementation. |
 | Product discovery | Understand user, problem, current workaround, desired outcome, constraints, and what is out of scope. Ask only essential unresolved questions. | Approved product direction or a discovery note with open questions. | Product owner approves the direction; do not pretend an idea is a complete specification. |
-| Specify | Turn approved direction into observable behavior and success criteria; distinguish known facts, assumptions, and unresolved questions. | Specification in the configured authoritative system. | Product owner approves scope and unresolved questions needed by the next task are resolved. |
-| Plan and task | Order dependencies and prepare one focused task with scope, exclusions, acceptance criteria, verification, and blockers. | Plan and task record in their configured authoritative systems. | Task is explicitly marked ready only when blockers and prerequisites are resolved. |
+| Specify | Turn approved direction into observable behavior and success criteria; distinguish known facts, assumptions, and unresolved questions. | Specification in the configured knowledge authority. | Product owner approves scope and unresolved questions needed by the next task are resolved. |
+| Plan and task | Order dependencies and prepare one focused task with scope, exclusions, acceptance criteria, verification, and blockers. | Plan and task record in the configured task-management authority. | Task is explicitly marked ready only when blockers and prerequisites are resolved. |
 | Implement | Work one ready task in a focused session and isolated branch/worktree if configured; make small, coherent increments. | Code/documentation changes, task status, and concise evidence. | Acceptance criteria are met and a coherent reviewable state exists. |
 | Review and verify | Review the task-scoped diff against criteria; resolve actionable findings; run the exact prescribed final verification. Use specialist reviewers only when their domain is affected. | Review findings/resolutions and verification evidence attached to the task or authoritative record. | No unresolved blocking or should-fix findings; final verification passes or an owner-approved exception is explicit. |
 | Delivery decision | Present the concrete verified result and ask for the configured release/merge/deploy approval when required. | Approval record and delivery result. | No external state change without explicit approval as configured. A declined gate stops delivery and waits for direction. |
@@ -34,22 +34,21 @@ One person or agent may hold several roles in a small project, but keep approval
 
 ## Artifact and authority map
 
-Configure one authoritative source for each information type in `project.config.yml`.
+Choose task management and knowledge storage independently in `project.config.yml`.
 
-| Information | Minimum content |
+| Information | Authority and minimum content |
 |---|---|
-| Product direction | User/problem, desired outcome, constraints, exclusions, and approved direction. |
-| Specification | Observable behavior, success criteria, assumptions, and unresolved questions. |
-| Decisions | Chosen approach, context, alternatives where material, consequences, and status. |
-| Plan | Prioritized work and dependencies; avoid duplicating task details. |
-| Task | Objective, authoritative source links, scope, out of scope, acceptance criteria, verification, dependencies, blockers, and review findings. |
-| Completion record | Finished task, outcome, date, and durable reference. |
-| Session handoff | Exact state, evidence, blockers, and next action. |
-| Usage report | Actual platform measurements, measurement type/source, and explicit unavailable values; never inferred token or cost totals. |
+| Product direction, specifications, and decisions | Either Notion, or an in-repository OKF knowledge bundle (commonly `docs/knowledge/`). In the repository option, every durable knowledge concept must be OKF with YAML frontmatter containing a non-empty `type`. |
+| Plan, tasks, and completion record | Either Jira, or repository task documents using the configured templates. This choice is independent of the knowledge choice. |
+| Session handoff and token usage report | Repository Markdown at the configured operational-record locations; these are workflow records, not OKF concepts. |
 
-Markdown files are the default for personal projects. For teams, configuration may designate Jira as the task authority and Notion as the specification authority, with other types mapped separately. If a type is external, do not keep a competing editable Markdown version; link to it or mark an export as a read-only snapshot. This starter does not implement service integrations.
+When Notion is selected for knowledge, it is authoritative for product direction, specifications, and decisions; do not keep competing editable copies in the repository. When repository knowledge is selected, keep those concepts in the configured OKF bundle and do not use Notion as a second editable authority. When Jira is selected for task management, Jira owns plans/tasks/completion as configured; do not maintain competing editable repository task records. At bootstrap, ask each choice separately and confirm exact project/database/path locations and access before using external systems.
 
-At bootstrap, ask the owner to select one of three setups: repository Markdown for all record types, Jira for tasks plus Notion for specifications with explicit choices for other record types, or a mixed map with one chosen authority per type. Confirm the exact project/database/page locations and access before updating an external source. The selected map is the single authority; do not mirror editable Markdown files for externally managed types.
+### Repository knowledge must use OKF
+
+When `systems_of_record.knowledge.system` is `okf_markdown`, the configured directory is an OKF knowledge bundle. Each knowledge concept is a Markdown file with a YAML frontmatter block and a non-empty `type` field; use the OKF specification for other fields and bundle conventions. `index.md` and `log.md` are reserved bundle filenames and do not contain concept frontmatter. The package-provided validator checks this minimum contract; configure its exact command as `workflow.okf_validation_command`, run it during work, and make it a required CI check so invalid knowledge cannot merge. If the repository uses another CI system, wire the same command into its required check. Branch protection must be enabled in the host settings.
+
+Do not force tasks, handoffs, token reports, README files, or code documentation outside the knowledge bundle into OKF solely because they are Markdown. If knowledge is stored in Notion, the repository OKF validator may be omitted unless the repository separately maintains an OKF bundle.
 
 ## Task readiness and completion
 
@@ -69,7 +68,7 @@ A task is complete when its acceptance criteria and configured Definition of Don
 - A resumed session checks current repository state before acting and does not assume the prior agent's result is still current.
 - At session end, record actual input/output and cache token counts when the platform exposes them, plus cost only when the platform reports it. If no measurement is available, record `unavailable`, never zero or an estimate. Label cumulative snapshots as cumulative and do not compare them as per-session deltas. When the optional Claude-to-Markdown adapter is enabled, hooks keep raw events local and the configured consolidation command alone updates tracked reports; see `workflow/CLAUDE-USAGE-REPORTING.md`.
 
-Use `templates/session-handoff.md` and `templates/token-usage.md` for ordinary handoffs and summaries. Optional Claude reports use `templates/claude-usage-report.md` and `templates/claude-usage-history.md`. Configure one authoritative location for usage reports; platform-reported measurements remain the source of truth for usage values.
+Use `templates/session-handoff.md` and `templates/token-usage.md` for ordinary handoffs and summaries. Product direction, specifications, and decisions in repository mode use the OKF-ready templates. Optional Claude reports use `templates/claude-usage-report.md` and `templates/claude-usage-history.md`. Configure one authoritative location for usage reports; platform-reported measurements remain the source of truth.
 
 ## Git, review, and external actions
 

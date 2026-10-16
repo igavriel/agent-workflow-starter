@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0 — 2026-10-16
+
+- Split system-of-record configuration into independent task-management (Jira or repository Markdown) and knowledge (Notion or repository OKF) choices.
+- Made repository knowledge an OKF bundle, updated its templates and bootstrap guidance, and added a standard-library minimum-contract validator with CI/branch-protection setup instructions.
+- Kept handoffs and token reports as separately configured operational Markdown records.
+
 ## 0.5.0 — 2026-10-16
 
 - Added an adapted, MIT-attributed `git-workflow-and-versioning` skill with portable Git and commit guidance.

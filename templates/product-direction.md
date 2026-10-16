@@ -1,37 +1,39 @@
-# Product direction: [working title]
+---
+type: Product Direction
+title: "[working title]"
+description: "Approved or in-progress understanding of the user problem and intended outcome."
+status: draft
+tags: [product, discovery]
+---
 
-## Status
-
-Discovery | Proposed | Approved | Superseded
-
-## User and situation
+# User and situation
 
 Who experiences the problem, and when?
 
-## Problem and current workaround
+# Problem and current workaround
 
 What is difficult today, and how is it handled now?
 
-## Desired outcome
+# Desired outcome
 
 What should become easier or possible? Do not prescribe a solution before the problem is understood.
 
-## Why now
+# Why now
 
 What makes this worth addressing now?
 
-## Constraints and exclusions
+# Constraints and exclusions
 
 What must be respected? What is explicitly out of scope?
 
-## Assumptions and evidence
+# Assumptions and evidence
 
 Separate observed facts from assumptions and identify how important assumptions could be checked.
 
-## Open questions
+# Open questions
 
 List only questions whose answers can change the direction or near-term scope.
 
-## Approval
+# Approval
 
 Owner, date, and the exact direction approved. If approval is pending, state that it is not yet authoritative.

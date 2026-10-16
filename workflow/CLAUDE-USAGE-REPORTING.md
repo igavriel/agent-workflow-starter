@@ -4,7 +4,7 @@ This optional adapter turns locally captured Claude Code usage events into commi
 
 ## Enable only when applicable
 
-Enable `workflow.claude_usage_reporting` only when Claude Code is used, the platform exposes verifiable usage measurements, a project-specific capture/consolidation adapter exists, and the owner wants a Markdown report. Set `systems_of_record.authorities.token_usage_reports` to `system: markdown` and `location` to the configured report path. This remains a separate information type from task/specification records, so a project may use Markdown for usage reports while using Jira and Notion elsewhere.
+Enable `workflow.claude_usage_reporting` only when Claude Code is used, the platform exposes verifiable usage measurements, a project-specific capture/consolidation adapter exists, and the owner wants a Markdown report. Set `systems_of_record.operational_records.token_usage_reports` to the configured repository Markdown location. Usage reports are operational records, separate from the independent task-management and knowledge authorities.
 
 Configure the event location, generated report and history locations, one consolidation point, and the exact consolidation command in `project.config.yml`. The default example is consolidation after a task has merged to the default branch, once the authoritative task record says it is complete. Projects without that delivery flow must choose a suitable point explicitly. Do not enable the adapter while the consolidation point or command is unset.
 
