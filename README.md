@@ -1,28 +1,43 @@
 # Portable Development Workflow
 
-[![Template version](https://img.shields.io/badge/template-0.6.0-blue)](VERSION)
+[![Template version](https://img.shields.io/badge/template-0.6.1-blue)](VERSION)
 [![Agents](https://img.shields.io/badge/agents-Claude%20Code%20%7C%20Codex-6f42c1)](AGENTS.md)
 [![Tasks](https://img.shields.io/badge/tasks-Repository%20Markdown%20%7C%20Jira-0a7ea4)](#systems-of-record)
 [![Knowledge](https://img.shields.io/badge/knowledge-OKF%20Markdown%20%7C%20Notion-3178c6)](#systems-of-record)
 [![Token Optimizer](https://img.shields.io/badge/token%20optimizer-external%20plugin-orange)](https://github.com/alexgreensh/token-optimizer)
 
-Version: `0.6.0` (`VERSION` is authoritative).
+Version: `0.6.1` (`VERSION` is authoritative).
 
 This repository is a small starter for carrying a product-to-delivery workflow into a new project. It supports Claude Code and Codex through thin root entry files and lets each project select task management and knowledge storage independently.
 
 ## Copy and initialize
 
-1. Copy the starter files into the new repository root; exclude this starter's `.git/` directory and merge existing project files instead of overwriting local work.
+### Add it to an existing repository
+
+1. Create a working branch in the target repository and preserve its existing changes.
+2. Copy the starter files from this repo at a reviewed version, excluding this repo's `.git/` and `project.config.yml`.
+3. Merge `AGENTS.md`, `CLAUDE.md`, `README.md`, `.gitignore`, and editor settings with existing files; do not overwrite project guidance or local configuration blindly.
+4. Use the [existing-repository installation guide](docs/INSTALLATION.md) and its ready-to-paste agent prompt to adapt the files, choose task and knowledge authorities, configure OKF validation when applicable, and begin discovery.
+
+The template repository itself cannot update an existing repository automatically. Review the resulting changes in the target repo before merging them.
+
+### Start a new repository
+
+1. If this repository is enabled as a GitHub template, create the new repository with **Use this template**; otherwise create an empty repository and copy the starter files without this starter's `.git/` directory.
 2. In the new repository, copy `project.config.template.yml` to `project.config.yml` and fill only the required fields; leave unknown optional settings explicitly unset.
 3. Read `AGENTS.md`, `CLAUDE.md`, and `workflow/OPERATING-MODEL.md`.
 4. Run the bootstrap prompt in `prompts/bootstrap.md` with the agent that will work in the new repository.
 5. Review and approve the adapted project instructions and first discovery record before treating them as authoritative.
 6. Keep this template version in the project configuration and record local changes in `workflow/LOCAL-CUSTOMIZATIONS.md`.
 
+See [`docs/INSTALLATION.md`](docs/INSTALLATION.md) for the installation diagram and adoption prompt, and [`docs/WORKFLOW.md`](docs/WORKFLOW.md) for the template contents and product-to-delivery pipeline diagrams.
+
 No application package dependency is bundled. Repository knowledge uses the package-provided validator `scripts/validate-okf.py` (Python 3 standard library only) when OKF is selected; wire its command into CI and make it a required check. Branch protection must be enabled separately in the hosting service. The workflow also uses the external [token-optimizer plugin](https://github.com/alexgreensh/token-optimizer), which must be installed for the selected agent after reviewing its license and privacy behavior; it is not bundled. The upstream project currently declares a [PolyForm Noncommercial 1.0.0 license](https://github.com/alexgreensh/token-optimizer/blob/main/LICENSE), so review its terms before using it in a commercial project. Jira or Notion require separately configured access and remain authoritative only when selected.
 
 ## Files
 
+- `docs/INSTALLATION.md` explains new and existing repository setup with a ready-to-paste adoption prompt and Mermaid diagram.
+- `docs/WORKFLOW.md` maps the supplied components and the product-to-delivery process as Mermaid diagrams.
 - `workflow/OPERATING-MODEL.md` describes the reusable stages, roles, artifacts, authority choices, approval points, completion bar, and handoff practice.
 - `workflow/TOKEN-OPTIMIZER.md` documents the external plugin's reviewed Claude Code and Codex setup paths.
 - `workflow/CLAUDE-USAGE-REPORTING.md` documents the optional local-event-to-Markdown reporting lifecycle for Claude Code.

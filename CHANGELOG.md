@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.1 — 2026-10-16
+
+- Added README guidance and a ready-to-paste prompt for installing the workflow in an existing repository while preserving local instructions.
+- Added Mermaid diagrams for installation, template contents, and the product-to-delivery process.
+
+
 ## 0.6.0 — 2026-10-16
 
 - Split system-of-record configuration into independent task-management (Jira or repository Markdown) and knowledge (Notion or repository OKF) choices.
