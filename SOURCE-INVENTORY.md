@@ -1,0 +1,52 @@
+# Source inventory and extraction notes
+
+## Reusable source mapping
+
+| Source | Exported component | Treatment |
+|---|---|---|
+| `CLAUDE.md` | `workflow/OPERATING-MODEL.md`, both root entry files, `SOURCE-INVENTORY.md` | Extracted product-to-delivery lifecycle, scope/approval boundaries, focused context loading, review/verification, and handoff; project paths, finance rules, stack, commands, vendors, agent model names, and usage hooks are excluded or made configurable. |
+| `docs/tasks/README.md` and `docs/tasks/0000-0024/T-0000-template.md` | `workflow/OPERATING-MODEL.md`, `templates/task.md`, `templates/plan.md` | Retained small ready-task gates, dependencies, acceptance criteria, review evidence, completion state, and dependency order; T-numbering and repository-specific status markers are removed. |
+| `docs/tasks/PLAN.md` | `workflow/OPERATING-MODEL.md`, `templates/plan.md` | Retained the idea of one prioritized plan and distinct task records; removed all finance features, task history, priorities, and dependencies. |
+| `.claude/skills/using-agent-skills/SKILL.md` | `workflow/OPERATING-MODEL.md`, `skills/README.md` | Retained narrow skill loading, scoped work, explicit assumptions, and compact reports; removed stack-specific routing and installed-skill assumptions. |
+| `.claude/skills/interview-me/SKILL.md` | `prompts/bootstrap.md`, `templates/product-direction.md` | Retained user/problem discovery, essential one-at-a-time questions, explicit assumptions, and owner confirmation; upstream skill text is not copied. |
+| `.claude/skills/spec-driven-development/SKILL.md`, `.claude/skills/create-prd/SKILL.md` | `workflow/OPERATING-MODEL.md`, `templates/specification.md` | Retained approved specification before implementation and observable criteria; removed framework-specific commands, paths, and one-size-fits-all PRD sections. |
+| `.claude/skills/planning-and-task-breakdown/SKILL.md` | `workflow/OPERATING-MODEL.md`, `templates/plan.md`, `templates/task.md` | Retained dependency ordering, small tasks, vertical outcome focus, and checkpoints; removed fixed file-count limits and paths. |
+| `.claude/skills/incremental-implementation/SKILL.md` | `workflow/OPERATING-MODEL.md` | Retained thin verified increments, scope discipline, and rollback awareness; removed prescribed commit cadence, npm examples, and framework examples. |
+| `.claude/skills/code-review-and-quality/SKILL.md`, `.claude/agents/code-reviewer.md` | `workflow/OPERATING-MODEL.md`, `templates/task.md` | Retained task-scoped review, concrete findings, and fix/re-review loop; model/tool bindings and finance reviewer are source-project details. |
+| `.claude/skills/debugging-and-error-recovery/SKILL.md` | `workflow/OPERATING-MODEL.md` | Retained bounded diagnosis and compact failure evidence; language-specific procedures are not copied. |
+| `.claude/skills/documentation-and-adrs/SKILL.md` | `templates/decision.md`, `workflow/OPERATING-MODEL.md` | Retained rationale, consequences, status, and superseding decisions; path and numbering conventions remain configurable. |
+| `.claude/skills/git-workflow-and-versioning/SKILL.md` | `skills/git-workflow-and-versioning/SKILL.md`, `workflow/OPERATING-MODEL.md`, `skills/THIRD_PARTY_NOTICES.md` | Adapted general Git, commit, and versioning guidance with MIT attribution; removed this repository's usage hooks, task rules, scripts, agents, npm commands, branch names, and shipping actions. |
+| `.claude/agents/verification-runner.md` | `workflow/OPERATING-MODEL.md` | Retained exact-command verification and compact pass/fail evidence; Haiku model, ignored log paths, and task-agent handoff fields are excluded. |
+| `.claude/agents/task-shipper.md` | `workflow/OPERATING-MODEL.md` | Retained a distinct delivery role behind explicit approval; GitHub-specific shipping sequence is not copied. |
+| `.claude/agents/implementation-planner.md` | `workflow/OPERATING-MODEL.md`, `templates/task.md` | Retained decomposition from approved direction and unresolved-question protection; agent name, file paths, and delegated setup are removed. |
+| `.claude/agents/product-reviewer.md` | `workflow/OPERATING-MODEL.md` | Retained the distinction between product-owner discovery/approval and implementation review; the finance-product document checks are excluded. |
+| `.claude/agents/finance-domain-reviewer.md` | `workflow/OPERATING-MODEL.md` | Its role is represented only as the configurable specialist-reviewer pattern; all finance invariants and sensitive examples are excluded. |
+| `.claude/agents/localization-auditor.md` | `workflow/OPERATING-MODEL.md` | Its bounded, optional specialist-audit pattern is represented generically; locale-specific checks and model binding are excluded. |
+| `.claude/skills/manager-response-format/SKILL.md`, `.agents/skills/manager-response-format/SKILL.md` | `skills/manager-response-format/SKILL.md` | Retained project-maintained concise outcome/decision/action/evidence format and generalized labels. |
+| `.claude/skills/THIRD_PARTY_NOTICES.md` | `skills/README.md` | Retained upstream provenance and MIT-license review/install advice; no third-party skill content is copied. |
+| `.claude/settings.json` | `workflow/OPERATING-MODEL.md`, `workflow/CLAUDE-USAGE-REPORTING.md`, `project.config.template.yml` | Identified source-specific Claude model, lifecycle hooks, command guard, and usage status line; the portable package documents an optional reporting adapter but does not enable hooks by default. |
+| `.claude/skills/git-workflow-and-versioning/scripts/task-preflight.mjs` | `workflow/OPERATING-MODEL.md`, `templates/task.md` | Its ready status, blocker, branch, source-existence, and clean-tree checks inform the readiness gate; the script and T-number parser are excluded because they require this repository's task schema and Claude/Git setup. |
+| `.claude/skills/git-workflow-and-versioning/scripts/usage-tracker.mjs` | `workflow/OPERATING-MODEL.md`, `workflow/CLAUDE-USAGE-REPORTING.md`, `templates/claude-usage-report.md`, `templates/claude-usage-history.md`, `project.config.template.yml` | Retained measured-delta, cumulative-label, local-event capture, idempotent post-task consolidation, and Markdown-reporting behavior as an optional adapter contract; the task-ID parser, transcript parser, hook wiring, and source-specific script are excluded. |
+| `.claude/skills/git-workflow-and-versioning/scripts/task-agent-guard.mjs` | `SOURCE-INVENTORY.md` | Excluded because it enforces a particular Claude Agent tool and task-branch policy; configure a local guard only if a project has the same concrete need. |
+| `package.json` | `project.config.template.yml`, `workflow/OPERATING-MODEL.md` | Used only to identify source-specific commands and stack dependencies to remove; no npm command or package dependency is exported. |
+| Owner-requested repository defaults | `.gitignore`, `.gitattributes`, `.editorconfig`, `.vscode/settings.json`, `README.md` | Added generic secret/temp-file ignores, line-ending normalization, editor defaults, and status badges; retained the existing VS Code color customizations. These files add no runtime dependencies. |
+
+## Owner-requested addition not found in source
+
+At the owner's request, `alexgreensh/token-optimizer` is a required external workflow plugin configured in `project.config.template.yml` and documented in `workflow/TOKEN-OPTIMIZER.md`. No upstream code is copied. The repository declares a PolyForm Noncommercial 1.0.0 license; the starter requires projects to review current license and privacy terms before installation and record the actual version installed for each agent.
+
+## Exclusions
+
+- Application source, tests, generated artifacts, private `data/`, personal or financial values, credentials, local usage logs, and completed task/decision history are excluded because they are source-project code or private/domain-specific records.
+- Finance-specific requirements, privacy rules, naming standards, architecture, UI conventions, task identifiers, exact readiness thresholds, and product decisions are excluded because they do not apply to unrelated projects.
+- TypeScript, React, browser storage, SQL, Playwright, npm scripts, GitHub pull request actions, Claude/Haiku model assignments, Claude hook wiring, and token/cost tracker scripts are not copied; the exact tools and costs are configuration-dependent. The measured-usage process is retained in platform-neutral form, with an optional Claude event-to-Markdown reporting contract, and only actual measured usage may ever be reported.
+- Third-party skill bodies are not copied blindly. The one adapted skill is attributed under MIT in `skills/THIRD_PARTY_NOTICES.md`; see `skills/README.md` for provenance and per-skill installation guidance.
+- The target repository's `.git` internals, local refs, hooks, and history are not copied as portable workflow content; Git creates its own metadata for each repository.
+
+## Initialization walkthrough: mobile web app in another domain
+
+Suppose the new repository is intended for a small mobile web application related to a community repair café. The phrase describes a domain and target form factor, not an approved product specification. Bootstrap inspects the existing repository, records mobile web as a known constraint only if the owner confirms it, and leaves the implementation stack unset until the need and constraints justify choosing one.
+
+For a personal project, configure Markdown as the authority for product direction, specifications, decisions, plans, tasks, completion, and handoffs. For a team that selects Notion for specifications and Jira for tasks, configure those exact systems and keep links in the repository rather than parallel editable Markdown copies. Discover existing commands and security/privacy boundaries from the repository instead of assuming a test framework, hosting service, or user account model.
+
+Product discovery begins by asking who at the repair café has a recurring problem and what they do today. Follow only with essential questions whose answers change the product direction, such as what outcome matters and what constraints apply. Record assumptions separately and wait for owner approval of the direction. Then specify observable success criteria, choose the smallest next task only after its dependencies and verification are clear, and mark it ready only after approval and blocker resolution. No application code is built during this walkthrough.

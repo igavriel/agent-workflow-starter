@@ -1,0 +1,70 @@
+# Copy this file to project.config.yml. Keep one authoritative system per record type.
+# Required inputs must be completed during bootstrap; optional values may remain null.
+
+template:
+  version: "0.5.0" # Required: starter version this project adopted.
+  local_customizations: "workflow/LOCAL-CUSTOMIZATIONS.md" # Required: record project-specific deviations here.
+
+project:
+  name: null # Required.
+  purpose: null # Required: one sentence; if unknown, use "to be discovered" during bootstrap.
+  product_status: "undiscovered" # Required: undiscovered | discovery | specified | active | maintenance.
+  owner: null # Required: person/role who approves product scope and external actions.
+  agent_entry_points: ["AGENTS.md", "CLAUDE.md"] # Required: retain only the tools actually used.
+
+systems_of_record:
+  # Required choice at bootstrap: markdown_repository | jira_notion | mixed.
+  # Fill one system and locator for every record type below; each type has exactly one authority.
+  mode: "choose_at_bootstrap"
+  authorities:
+    product_direction: { system: null, location: null }
+    specifications: { system: null, location: null }
+    decisions: { system: null, location: null }
+    plans: { system: null, location: null }
+    tasks: { system: null, location: null }
+    completion_record: { system: null, location: null }
+    session_handoffs: { system: null, location: null }
+    token_usage_reports: { system: null, location: null }
+  # markdown_repository: use system "markdown" for every record and repository-relative locations.
+  # jira_notion: use Notion for specifications and Jira for tasks; choose one explicit authority for every other record type too.
+  # A common mapping is Notion for product direction/decisions and Jira for plans/completion, but confirm it with the owner.
+  # mixed: choose the authority separately for every record type; never keep two editable authorities for one type.
+  # token_usage_reports may be Markdown even when tasks/specifications use external systems; set one authority and location.
+  # Record external access and allowed actions below before using Jira or Notion.
+
+required_project_facts:
+  stack: null # Required before implementation: language, runtime, major frameworks, persistence, deployment target, or "not selected".
+  commands: null # Required before implementation: discovered test/build/lint/dev commands, or "not available".
+  privacy_and_security_constraints: null # Required: data classes, prohibited data, access boundaries, and known regulatory obligations.
+  definition_of_done: null # Required before declaring work done: verification, review, documentation, and delivery bar.
+
+workflow:
+  branch_strategy: null # Optional: branch names, base branch, worktree/parallelism rules, or "no branches".
+  task_statuses: ["draft", "ready", "in-progress", "blocked", "done"] # Optional: align with the system of record.
+  task_size_limit: null # Optional: practical session/file/phase boundary; choose a limit suited to the project.
+  reviewers: [] # Optional: reviewer roles and the conditions that trigger specialist review.
+  approval_gates: ["product scope", "release or external state change"] # Optional: state who approves each gate and what a clear approval means.
+  verification_commands: [] # Optional: exact commands after discovery; never invent command names.
+  parallel_work_limit: 1 # Optional: number of concurrent implementation streams the project can safely support.
+  session_handoff_location: "docs/HANDOFF.md" # Optional; must agree with systems_of_record.authorities.session_handoffs.
+  token_optimizer_plugin: "token-optimizer" # Required before implementation; see workflow/TOKEN-OPTIMIZER.md.
+  token_usage_reporting: "required_when_measurable" # Required: report actual measurements; mark unavailable when the platform exposes none.
+  token_usage_source: null # Required before implementation: exact platform/session view or verified measurement source.
+  claude_usage_reporting:
+    enabled: false # Optional; requires Claude Code and a Markdown token_usage_reports authority.
+    event_location: ".claude/usage/" # Local ignored event data; never commit raw usage events.
+    report_location: "docs/CLAUDE_USAGE.md" # Generated completed-task summary.
+    history_location: "docs/CLAUDE_USAGE_HISTORY.md" # Generated open/legacy lifecycle appendix.
+    consolidation_point: null # Configure one event, e.g. after task merge to the default branch.
+    consolidation_command: null # Exact project command, if an adapter is implemented; never assume one.
+
+skills:
+  required:
+    - id: "token-optimizer"
+      source: "https://github.com/alexgreensh/token-optimizer"
+      version_or_revision: { claude_code: null, codex: null } # Fill the installed version/revision for each agent used.
+  installed: [] # Optional: other exact skill IDs/paths available in this environment.
+  third_party_installation_approved: false # Optional: install only specific reviewed skills, not entire collections.
+
+integrations:
+  approved: [] # Optional: list service, authorized account, allowed actions, and approval boundaries; empty means none configured.

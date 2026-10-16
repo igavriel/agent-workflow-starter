@@ -1,0 +1,20 @@
+# Local operating-system and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*.log
+
+# Optional Claude Code usage hook events; keep raw local measurements out of Git
+.claude/usage/
+
+# Local secrets; commit safe examples with an explicit example/template suffix
+.env
+.env.*
+!.env.example
+!.env.template
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
