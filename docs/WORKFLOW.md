@@ -73,9 +73,9 @@ flowchart TD
     N --> O{Delivery approved?}
     O -->|No| P[Stop at approval gate and wait]
     O -->|Yes| Q[Perform only authorized delivery actions]
-    P --> R[Record actual token usage or unavailable]
-    Q --> R
-    R --> S[Write handoff: state, evidence, blockers, next action]
+    Q --> R[Record actual token usage or unavailable]
+    P --> S[Write handoff: state, evidence, blockers, next action]
+    R --> S
     S --> T[Next session verifies current repo state and resumes]
     T --> I
 ```

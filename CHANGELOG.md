@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.6.3 — 2026-10-17
+
+- Added sanitized source-project examples mapping privacy constraints, product-owner/product-review roles, and bounded main-agent/subagent handoffs to portable configuration.
+
+
+## 0.6.2 — 2026-10-16
+
+- Added a Mermaid decision flow and review checklist for evaluating, approving, installing, validating, and upgrading optional third-party skills.
+- Clarified which included skills are referenced, optional, or external dependencies, and documented native Claude Code and Codex skill discovery locations.
+
+
 ## 0.6.1 — 2026-10-16
 
 - Added README guidance and a ready-to-paste prompt for installing the workflow in an existing repository while preserving local instructions.

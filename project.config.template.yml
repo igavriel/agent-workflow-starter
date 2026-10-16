@@ -2,7 +2,7 @@
 # Required inputs must be completed during bootstrap; optional values may remain null.
 
 template:
-  version: "0.6.0" # Required: starter version this project adopted.
+  version: "0.6.3" # Required: starter version this project adopted.
   local_customizations: "workflow/LOCAL-CUSTOMIZATIONS.md" # Required: record project-specific deviations here.
 
 project:

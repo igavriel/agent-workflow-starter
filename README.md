@@ -1,12 +1,12 @@
 # Portable Development Workflow
 
-[![Template version](https://img.shields.io/badge/template-0.6.1-blue)](VERSION)
+[![Template version](https://img.shields.io/badge/template-0.6.3-blue)](VERSION)
 [![Agents](https://img.shields.io/badge/agents-Claude%20Code%20%7C%20Codex-6f42c1)](AGENTS.md)
 [![Tasks](https://img.shields.io/badge/tasks-Repository%20Markdown%20%7C%20Jira-0a7ea4)](#systems-of-record)
 [![Knowledge](https://img.shields.io/badge/knowledge-OKF%20Markdown%20%7C%20Notion-3178c6)](#systems-of-record)
 [![Token Optimizer](https://img.shields.io/badge/token%20optimizer-external%20plugin-orange)](https://github.com/alexgreensh/token-optimizer)
 
-Version: `0.6.1` (`VERSION` is authoritative).
+Version: `0.6.3` (`VERSION` is authoritative).
 
 This repository is a small starter for carrying a product-to-delivery workflow into a new project. It supports Claude Code and Codex through thin root entry files and lets each project select task management and knowledge storage independently.
 
@@ -38,6 +38,8 @@ No application package dependency is bundled. Repository knowledge uses the pack
 
 - `docs/INSTALLATION.md` explains new and existing repository setup with a ready-to-paste adoption prompt and Mermaid diagram.
 - `docs/WORKFLOW.md` maps the supplied components and the product-to-delivery process as Mermaid diagrams.
+- `docs/THIRD-PARTY-SKILLS.md` gives a review, approval, installation, validation, and upgrade flow for optional external skills.
+- `docs/EXAMPLE-FLOWS.md` maps the source project's product, privacy, and bounded subagent practices to the portable workflow.
 - `workflow/OPERATING-MODEL.md` describes the reusable stages, roles, artifacts, authority choices, approval points, completion bar, and handoff practice.
 - `workflow/TOKEN-OPTIMIZER.md` documents the external plugin's reviewed Claude Code and Codex setup paths.
 - `workflow/CLAUDE-USAGE-REPORTING.md` documents the optional local-event-to-Markdown reporting lifecycle for Claude Code.
@@ -64,7 +66,7 @@ Run `python3 scripts/validate-okf.py docs/knowledge` after replacing the path wi
 
 ## Skills
 
-The locally maintained `manager-response-format` skill source is included in `skills/manager-response-format/SKILL.md`. The required `token-optimizer` plugin is external; see `skills/README.md` and `workflow/TOKEN-OPTIMIZER.md` for the Claude Code and Codex setup paths.
+The locally maintained `manager-response-format` skill source is included in `skills/manager-response-format/SKILL.md`; it is not automatically registered as a native skill. The adapted Git workflow skill is explicitly read by the operating model. Optional third-party skill adoption is covered in [`docs/THIRD-PARTY-SKILLS.md`](docs/THIRD-PARTY-SKILLS.md). The required `token-optimizer` plugin is external; see `skills/README.md` and `workflow/TOKEN-OPTIMIZER.md` for the Claude Code and Codex setup paths.
 
 Token usage is part of each session handoff and task completion record. Use actual platform measurements when available, record `unavailable` otherwise, and never estimate. The platform's measurements are authoritative; `templates/token-usage.md` is a concise project summary. Claude Code projects may optionally capture ignored local lifecycle events and generate Markdown reports at a configured consolidation point; other agents continue using their configured measurement source.
 
